@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  site:
+    name: Site checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Key files exist
+        run: |
+          set -euo pipefail
+          for f in index.html 404.html CNAME assets/css/style.css assets/js/main.js assets/js/dev-mode.js dev-server.js changelogs/index.html changelog/index.html assets/js/changelogs.js legal/index.html legal/privacy/index.html legal/terms/index.html legal/cookies/index.html legal/imprint/index.html legal/disclaimer/index.html legal/opt-out/index.html sitemap.xml sitemap/index.html robots.txt README.md CHANGELOG.md VERSION.md CONTRIBUTING.md commit.sh commit.bat; do
+            if [ ! -f "$f" ]; then echo "::error::Missing $f"; exit 1; fi
+          done
+      - name: HTML parses and local links resolve
+        run: |
+          python3 - <<'PY'
+          import html.parser, os, sys, urllib.parse
+          bad = []
+          class P(html.parser.HTMLParser):
+              def __init__(s, f):
+                  super().__init__(); s.f = f
+              def handle_starttag(s, tag, attrs):
+                  for k, v in attrs:
+                      if k not in ("href", "src") or not v:
+                          continue
+                      u = urllib.parse.urlparse(v)
+                      if u.scheme or v.startswith(("//", "#", "mailto:", "tel:", "data:", "javascript:")) or "{" in v or "<%" in v:
+                          continue
+                      path = urllib.parse.unquote(u.path)
+                      if not path:
+                          continue
+                      base = "." if path.startswith("/") else os.path.dirname(s.f)
+                      t = os.path.normpath(os.path.join(base, path.lstrip("/")))
+                      if not (os.path.isfile(t) or os.path.isfile(os.path.join(t, "index.html")) or os.path.isfile(t + ".html")):
+                          bad.append(f"{s.f}: broken local link {v}")
+          files = []
+          for root, dirs, fs in os.walk("."):
+              dirs[:] = [d for d in dirs if d not in (".git", "node_modules", ".github")]
+              files += [os.path.join(root, f) for f in fs if f.endswith(".html")]
+          for f in files:
+              P(f).feed(open(f, encoding="utf-8").read())
+          print(f"Checked {len(files)} HTML file(s)")
+          if bad:
+              print("\n".join(bad)); sys.exit(1)
+          PY
+      - name: Workflow YAML is valid
+        run: |
+          set -euo pipefail
+          for f in .github/workflows/*.yml; do yq e 'true' "$f" > /dev/null && echo "ok $f"; done
+
+  version:
+    name: Version consistency
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: VERSION.md has a matching CHANGELOG.md release heading
+        run: |
+          set -euo pipefail
+          if [ ! -f VERSION.md ]; then echo "::error::VERSION.md is missing"; exit 1; fi
+          V="$(tr -d '[:space:]' < VERSION.md)"
+          if ! printf '%s' "$V" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "::error::VERSION.md is not MAJOR.MINOR.PATCH: $V"; exit 1
+          fi
+          if ! grep -Eq "^## \[?v?${V//./\.}\]?([[:space:]]|$)" CHANGELOG.md; then
+            echo "::error::CHANGELOG.md has no release heading for $V"; exit 1
+          fi
+          echo "VERSION.md ($V) has a matching CHANGELOG.md entry"

@@ -1,0 +1,17 @@
+# Changelog
+
+All notable changes to Stux.Digital Clients are documented here.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.0.0] - 2026-10-08
+
+### Added
+
+- Stux.Digital Clients (`clients.stux.digital`): the static directory of the sites Stux.Digital has taken from idea to online, built on the Stux.Group listing-site pattern in Stux.Digital's two-tone sky blue (`#38bdf8` on dark, `#0369a1` on light, straight from the logo)
+- The Stux.Digital twist: the hero's stats in a browser window like the one in the logo, an "idea to online" path joining the five steps every client site takes (Idea, Design by Stux.Design, Build by Stux.Dev, Host by Stuxedo, Online), and a 404 page that "took a wrong turn" inside the same browser frame
+- Featured cards for Stux.Digital Status and Stux.Digital itself with live badges from `status.stux.digital`, a "Your site could be first" card holding the first client slot, and the Clientpage template card
+- Theme-swapped logo and icons: the bright variants on the dark theme, the deep ones on light
+- Boring Legal Stuff hub with Privacy Policy, Terms and Ethics, Cookies Policy, Imprint, Disclaimer and Opt-Out Preferences, a `/changelogs/` page rendering this file (sections always in Added, Changed, Fixed, Removed, Security, Deprecated order), a sitemap page, `sitemap.xml`, `robots.txt` and a 404 page
+- `dev-server.sh` / `dev-server.bat` (DEV_MODE on by default, `--no-dev-mode` to see production), CI site checks, GitHub Pages deploy and release workflows, and `commit.sh` / `commit.bat` for tagged releases
