@@ -20,6 +20,7 @@ BASE_URL = "https://" + (ROOT / "CNAME").read_text(encoding="utf-8").strip()
 # (path, source file, label, description, priority, changefreq)
 PAGES = [
     ("/", "index.html", "Home", "Every site Stux.Digital has taken from idea to online, with live status.", "1.0", "monthly"),
+    ("/stuxgroup/", "stuxgroup/index.html", "Stux.Group, from idea to online", "How the Stux.Group website, the first client site, went from an idea to online.", "0.6", "monthly"),
     ("/legal/", "legal/index.html", "Boring Legal Stuff", "Privacy, terms, cookies, imprint, disclaimer and opt-out preferences, all in one place.", "0.3", "yearly"),
     ("/legal/privacy/", "legal/privacy/index.html", "Privacy Policy", "What we collect (almost nothing) and why.", "0.2", "yearly"),
     ("/legal/terms/", "legal/terms/index.html", "Terms and Ethics", "The rules for using the site, and using it responsibly.", "0.2", "yearly"),

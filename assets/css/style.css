@@ -580,6 +580,7 @@ a { color: inherit; text-decoration: none; }
 .legal-card-name { font-family: var(--font-display); font-weight: 600; margin-bottom: 4px; }
 .legal-card-desc { color: var(--text-muted); font-size: 0.85rem; }
 
+.section--flush { padding-top: 0; }
 .prose-page { max-width: 720px; margin: 0 auto; }
 .prose-meta { color: var(--text-faint); font-size: 0.82rem; margin-bottom: 28px; }
 .prose-body h2 { font-size: 1.25rem; margin: 36px 0 12px; }
@@ -886,6 +887,14 @@ a.journey-by:hover { text-decoration: underline; }
   .journey-dot { grid-row: span 3; margin: 0; }
   .journey-step .journey-by { justify-self: start; }
 }
+/* A client's own page: its site in a browser window, then its five steps */
+.case-browser { margin-top: 0; }
+.case-intro { display: flex; gap: 22px; align-items: flex-start; }
+.case-intro img { flex: none; border-radius: 16px; }
+.case-intro h2 { margin: 0 0 6px; font-size: 1.4rem; }
+.case-intro p { margin: 0 0 16px; color: var(--text-muted); }
+.case-links { display: flex; gap: 10px; flex-wrap: wrap; }
+@media (max-width: 560px) { .case-intro { flex-direction: column; } }
 .not-found-browser { width: 100%; max-width: 620px; margin-top: 0; text-align: center; }
 .not-found-browser p { margin-left: auto; margin-right: auto; }
 .not-found-browser .browser-body { padding: 36px 24px 40px; }

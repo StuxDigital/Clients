@@ -79,7 +79,8 @@
   // data-monitor="<source>:<slug>" reads another status page's summary.json.
   var RAW = "https://raw.githubusercontent.com/";
   var SOURCES = {
-    "stux-digital": { url: RAW + "StuxDigital/Status/main/data/summary.json", site: "status.stux.digital" }
+    "stux-digital": { url: RAW + "StuxDigital/Status/main/data/summary.json", site: "status.stux.digital" },
+    "stux-group": { url: RAW + "StuxGroup/Status/main/data/summary.json", site: "status.stux.group" }
   };
   var DEFAULT_SOURCE = "stux-digital";
   var PILL = { up: "Online", degraded: "Degraded", down: "Offline" };

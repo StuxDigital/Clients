@@ -5,6 +5,18 @@ All notable changes to Stux.Digital Clients are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-10-09
+
+### Added
+
+- Stux.Group is the first client site listed, in place of the "Your site could be first" slot, with a live status badge from status.stux.group (a second status source alongside status.stux.digital) and links to the site, its status and its own page
+- A page for Stux.Group at `/stuxgroup/`, "Stux.Group, from idea to online": the site in a browser window, its five steps on the winding path (Idea, Design by Stux.Design, Build by Stux.Dev, Host by Stuxedo, Online), and what happened at each step. It's in the sitemap
+
+### Changed
+
+- The hero counts 1 client site live so far
+- The Privacy Policy says live status is also read from status.stux.group's data on GitHub
+
 ## [1.0.2] - 2026-10-09
 
 ### Changed

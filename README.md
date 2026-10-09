@@ -30,10 +30,10 @@ Design by Stux.Design, Build by Stux.Dev, Host by Stuxedo, Online).
 |---|---|---|---|
 | Stux.Digital Status | Live status and uptime history of Stux.Digital and its client sites | [status.stux.digital](https://status.stux.digital) | [StuxDigital/Status](https://github.com/StuxDigital/Status) |
 | Stux.Digital | The studio itself, and the front door for a new site | [stux.digital](https://stux.digital) | private |
-| Your site could be first | The open first slot, until the first client site is live | n/a | n/a |
+| Stux.Group | The parent company's website, and the first client site ([from idea to online](https://clients.stux.digital/stuxgroup/)) | [stux.group](https://stux.group) | private |
 | Clientpage | The placeholder a client's address shows while their site is on its way (Template) | [clientpage.stux.digital](https://clientpage.stux.digital) | [StuxDigital/clientpage](https://github.com/StuxDigital/clientpage) |
 
-No client sites are live yet. This table (and the matching cards on the site) is the source of
+This table (and the matching cards on the site) is the source of
 truth for what's listed: update both together when a client site is added, retired or renamed.
 Each card shows one badge above its description: Discontinued, Template, Maintenance or Coming
 soon (from `data-state`, in that order of precedence), otherwise a live Online / Degraded / Offline
