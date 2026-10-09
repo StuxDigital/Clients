@@ -5,6 +5,13 @@ All notable changes to Stux.Digital Clients are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1] - 2026-10-09
+
+### Fixed
+
+- The Stux.Group page (`/stuxgroup/`) gave a 404: the Pages workflow copies the site's folders by name and didn't include it. It's published now
+- The 404 page's message sat to the left of the centre line on wider screens; it's centred under the heading again
+
 ## [1.1.0] - 2026-10-09
 
 ### Added

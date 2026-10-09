@@ -29,7 +29,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir _site
-          cp -r index.html 404.html CNAME robots.txt sitemap.xml CHANGELOG.md VERSION.md assets legal changelogs changelog sitemap _site/
+          cp -r index.html 404.html CNAME robots.txt sitemap.xml CHANGELOG.md VERSION.md assets legal changelogs changelog sitemap stuxgroup _site/
       - uses: actions/upload-pages-artifact@v5
         with:
           path: _site
