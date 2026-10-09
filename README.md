@@ -28,8 +28,8 @@ Design by Stux.Design, Build by Stux.Dev, Host by Stuxedo, Online).
 
 | Entry | What it is | Site | Repo |
 |---|---|---|---|
-| Stux.Digital Status | Live status and uptime history of Stux.Digital and its client sites | [status.stux.digital](https://status.stux.digital) | [StuxDigital/Status](https://github.com/StuxDigital/Status) |
 | Stux.Digital | The studio itself, and the front door for a new site | [stux.digital](https://stux.digital) | private |
+| Stux.Digital Status | Live status and uptime history of Stux.Digital and its client sites | [status.stux.digital](https://status.stux.digital) | [StuxDigital/Status](https://github.com/StuxDigital/Status) |
 | Stux.Group | The parent company's website, and the first client site ([from idea to online](https://clients.stux.digital/stuxgroup/)) | [stux.group](https://stux.group) | private |
 | Clientpage | The placeholder a client's address shows while their site is on its way (Template) | [clientpage.stux.digital](https://clientpage.stux.digital) | [StuxDigital/clientpage](https://github.com/StuxDigital/clientpage) |
 
