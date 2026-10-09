@@ -188,3 +188,52 @@
     });
   }).catch(function () {});
 })();
+
+// The idea-to-online journey: one winding dotted path through every step's dot, from the idea's
+// lightbulb to Online, like the path in the logo. It winds through the staggered row on wide
+// screens and waves down the column on narrow ones, and is redrawn whenever the layout moves.
+(function () {
+  var list = document.querySelector(".journey");
+  if (!list) return;
+  var dots = [].slice.call(list.querySelectorAll(".journey-dot"));
+  if (dots.length < 2) return;
+  var NS = "http://www.w3.org/2000/svg";
+  var svg = document.createElementNS(NS, "svg");
+  svg.setAttribute("class", "journey-path");
+  svg.setAttribute("aria-hidden", "true");
+  svg.setAttribute("focusable", "false");
+  var path = document.createElementNS(NS, "path");
+  svg.appendChild(path);
+  list.insertBefore(svg, list.firstChild);
+  function f(n) { return n.toFixed(1); }
+  function draw() {
+    var box = list.getBoundingClientRect();
+    var pts = dots.map(function (d) {
+      var r = d.getBoundingClientRect();
+      return [r.left + r.width / 2 - box.left, r.top + r.height / 2 - box.top];
+    });
+    var d = "M" + f(pts[0][0]) + " " + f(pts[0][1]);
+    var column = Math.abs(pts[pts.length - 1][0] - pts[0][0]) < 10;
+    for (var i = 1; i < pts.length; i++) {
+      var a = pts[i - 1], b = pts[i], c1, c2;
+      if (column) {
+        // One column of steps: wave either side of the line down it.
+        var w = (i % 2 ? -1 : 1) * Math.min(28, (b[1] - a[1]) / 4);
+        c1 = [a[0] - w, a[1] + (b[1] - a[1]) / 3];
+        c2 = [b[0] + w, b[1] - (b[1] - a[1]) / 3];
+      } else {
+        // A row of staggered steps: a smooth curve through them, swung wide so it winds.
+        var p0 = pts[i - 2] || a, p3 = pts[i + 1] || b;
+        c1 = [a[0] + (b[0] - p0[0]) / 4, a[1] + (b[1] - p0[1]) / 2.2];
+        c2 = [b[0] - (p3[0] - a[0]) / 4, b[1] - (p3[1] - a[1]) / 2.2];
+      }
+      d += " C" + f(c1[0]) + " " + f(c1[1]) + " " + f(c2[0]) + " " + f(c2[1]) + " " + f(b[0]) + " " + f(b[1]);
+    }
+    path.setAttribute("d", d);
+  }
+  draw();
+  window.addEventListener("resize", draw);
+  window.addEventListener("load", draw);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+  if (window.ResizeObserver) new ResizeObserver(draw).observe(list);
+})();
