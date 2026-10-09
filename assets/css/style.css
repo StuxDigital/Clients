@@ -733,6 +733,14 @@ a { color: inherit; text-decoration: none; }
 :root[data-theme="light"] .cl-label-removed, :root.theme-light .cl-label-removed { --cl: #c62828; }
 :root[data-theme="light"] .cl-label-security, :root.theme-light .cl-label-security { --cl: #7b3fc4; }
 :root[data-theme="light"] .cl-label-deprecated, :root.theme-light .cl-label-deprecated { --cl: #5f5f68; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .cl-label-added { --cl: #1e8449; }
+  :root:not([data-theme="dark"]) .cl-label-changed { --cl: #1a6fc0; }
+  :root:not([data-theme="dark"]) .cl-label-fixed { --cl: #b8650f; }
+  :root:not([data-theme="dark"]) .cl-label-removed { --cl: #c62828; }
+  :root:not([data-theme="dark"]) .cl-label-security { --cl: #7b3fc4; }
+  :root:not([data-theme="dark"]) .cl-label-deprecated { --cl: #5f5f68; }
+}
 .cl-list { margin: 0 0 10px; padding-left: 1.2em; color: var(--text-muted); font-size: 0.95rem; }
 .cl-list li { margin: 0 0 6px; overflow-wrap: anywhere; }
 .cl-list code, .cl-msg code { font-family: var(--font-mono, Consolas, monospace); font-size: 0.88em; background: var(--bg-raised); border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px; }
