@@ -913,3 +913,20 @@ a.journey-by:hover { text-decoration: underline; }
 :root[data-theme="light"] .btn-primary { color: #fff; }
 /* Phones: the "How it works" link is one tap away in the page anyway; keep the header to two rows. */
 @media (max-width: 640px) { .nav-links a[href="/#journey"] { display: none; } }
+
+/* Light/dark toggle (main.js): shows the theme it switches to, a sun on dark and a moon on light. Until it's used the site follows
+   the system theme; after that <html data-theme> holds the choice. */
+.theme-toggle {
+  display: inline-grid; place-items: center; width: 34px; height: 34px; margin-left: 4px; padding: 0;
+  border: 1px solid var(--border); border-radius: 50%; background: transparent; color: var(--text-muted);
+  cursor: pointer; transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.theme-toggle:hover, .theme-toggle:focus-visible { color: var(--text); background: var(--accent-soft); border-color: var(--accent); }
+.theme-toggle svg { width: 16px; height: 16px; fill: currentColor; }
+.theme-toggle .ico-moon { display: none; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .theme-toggle .ico-moon { display: block; }
+  :root:not([data-theme="dark"]) .theme-toggle .ico-sun { display: none; }
+}
+:root[data-theme="light"] .theme-toggle .ico-moon { display: block; }
+:root[data-theme="light"] .theme-toggle .ico-sun { display: none; }

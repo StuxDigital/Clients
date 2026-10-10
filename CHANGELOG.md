@@ -5,6 +5,12 @@ All notable changes to Stux.Digital Clients are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-10-10
+
+### Added
+
+- A light/dark toggle at the end of the header on every page, like the brand pages': it shows the theme it switches to (a sun on dark, a moon on light). Until it's used the site follows the system theme; after that the choice is remembered in this browser
+
 ## [1.1.4] - 2026-10-09
 
 ### Changed
