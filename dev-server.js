@@ -37,6 +37,7 @@ const MIME = {
   ".jpeg": "image/jpeg",
   ".ico": "image/x-icon",
   ".json": "application/json; charset=utf-8",
+  ".webmanifest": "application/manifest+json",
   ".txt": "text/plain; charset=utf-8",
   ".md": "text/markdown; charset=utf-8",
 };

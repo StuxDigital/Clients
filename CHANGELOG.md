@@ -3,7 +3,24 @@
 All notable changes to Stux.Digital Clients are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+and this project adheres to [Date Versioning](https://datevers.ing) since v26.10.23 (`YY.MM.DD`, the UTC release date, with `-1`, `-2`… for later releases the same day); earlier releases used [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## v26.10.23
+
+### Added
+
+- A custom Discord link preview (a component embed) on every page except the 404 page and the old `/changelog/` redirect, with a hand-written preview for the home page; the pages are written by `scripts/build-head.py`, and `tests/head.py` checks them
+- A full favicon set: `favicon.ico`, `apple-touch-icon.png` and a web app manifest (`site.webmanifest`) with 192, 512 and maskable icons, with the same tags in every page's head
+- `tests/changelogs.test.js`, which checks that the changelog page reads `## vYY.MM.DD` headings, sorts sections Added to Deprecated and keeps their colours
+- `tests/version.sh`, which checks that `VERSION.md` is a valid Date Version, a real calendar date not in the future, and the same as the newest entry in this changelog
+
+### Changed
+
+- Switched from Semantic Versioning to [Date Versioning](https://datevers.ing): releases are numbered by their UTC release date as `YY.MM.DD`, with `-1`, `-2`… for later releases the same day. This release follows v1.2.0
+- `commit.sh` and `commit.bat` refuse a `VERSION.md` that isn't a valid Date Version or is dated in the future (UTC), and warn when it's dated before today
+- `scripts/build-sitemap.py` writes the sitemap page's own head block
+- The CI version check, the release workflow's tag check and the Pages build follow the new version form, favicon files and manifest
+- `README.md` and `CONTRIBUTING.md` describe Date Versioning and the release steps
 
 ## [1.2.0] - 2026-10-10
 

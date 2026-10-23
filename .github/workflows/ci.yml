@@ -18,7 +18,7 @@ jobs:
       - name: Key files exist
         run: |
           set -euo pipefail
-          for f in index.html 404.html CNAME assets/css/style.css assets/js/main.js assets/js/dev-mode.js dev-server.js changelogs/index.html changelog/index.html assets/js/changelogs.js legal/index.html legal/privacy/index.html legal/terms/index.html legal/cookies/index.html legal/imprint/index.html legal/disclaimer/index.html legal/opt-out/index.html sitemap.xml sitemap/index.html robots.txt README.md CHANGELOG.md VERSION.md CONTRIBUTING.md commit.sh commit.bat; do
+          for f in index.html 404.html CNAME assets/css/style.css assets/js/main.js assets/js/dev-mode.js dev-server.js changelogs/index.html changelog/index.html assets/js/changelogs.js legal/index.html legal/privacy/index.html legal/terms/index.html legal/cookies/index.html legal/imprint/index.html legal/disclaimer/index.html legal/opt-out/index.html sitemap.xml sitemap/index.html robots.txt favicon.ico apple-touch-icon.png site.webmanifest assets/img/icon-512.png assets/img/icon-192.png assets/img/icon-maskable-512.png README.md CHANGELOG.md VERSION.md CONTRIBUTING.md commit.sh commit.bat; do
             if [ ! -f "$f" ]; then echo "::error::Missing $f"; exit 1; fi
           done
       - name: HTML parses and local links resolve
@@ -68,10 +68,16 @@ jobs:
           set -euo pipefail
           if [ ! -f VERSION.md ]; then echo "::error::VERSION.md is missing"; exit 1; fi
           V="$(tr -d '[:space:]' < VERSION.md)"
-          if ! printf '%s' "$V" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
-            echo "::error::VERSION.md is not MAJOR.MINOR.PATCH: $V"; exit 1
+          if ! printf '%s' "$V" | grep -Eq '^[0-9]{2}\.(0[1-9]|1[0-2])\.(0[1-9]|[12][0-9]|3[01])(-[1-9][0-9]*)?$'; then
+            echo "::error::VERSION.md is not a Date Version (YY.MM.DD or YY.MM.DD-N): $V"; exit 1
           fi
           if ! grep -Eq "^## \[?v?${V//./\.}\]?([[:space:]]|$)" CHANGELOG.md; then
             echo "::error::CHANGELOG.md has no release heading for $V"; exit 1
           fi
           echo "VERSION.md ($V) has a matching CHANGELOG.md entry"
+      - name: Version, head and changelog-page tests
+        run: |
+          set -euo pipefail
+          bash tests/version.sh
+          python3 tests/head.py
+          node tests/changelogs.test.js

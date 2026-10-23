@@ -85,13 +85,14 @@ All six live under `legal/` (`privacy`, `terms`, `cookies`, `imprint`, `disclaim
 each its own folder with an `index.html`, linked from the **Boring Legal Stuff** hub at
 `legal/index.html`. Keep them in sync with what the site actually does.
 
-## Versioning and changelog
+## Versioning
 
-- The version lives in `VERSION.md` (a bare version string); bump it on every release
-- Every release gets a `CHANGELOG.md` entry using `###` subsections in this order: Added,
-  Changed, Fixed, Removed, Security, Deprecated. Never a bare bullet list under a version
-- `commit.sh` (bash) and `commit.bat` (Windows) read `VERSION.md` and handle the commit and
-  `git tag`; the release workflow publishes a GitHub Release when the tag is pushed
+This project uses [Date Versioning](https://datevers.ing). To release:
+
+1. Add a `## vYY.MM.DD` entry at the top of `CHANGELOG.md`, with its sections in this order: Added, Changed, Fixed, Removed, Security, Deprecated.
+2. Set `VERSION.md` to the same bare version (no `v`): today's **UTC** date as `YY.MM.DD`, or `YY.MM.DD-1`, `-2`… for later releases the same UTC day. Never a future date. Use UTC, not local time: just after midnight in the UK it is still the previous day in UTC.
+3. Run `python scripts/build-head.py` if any page's title or description changed, then the tests: `bash tests/version.sh`, `python tests/head.py` and `node tests/changelogs.test.js`.
+4. Run `./commit.sh` (or `commit.bat` on Windows). It checks the version, commits and tags `vYY.MM.DD`, and never pushes.
 
 ## Before committing
 
