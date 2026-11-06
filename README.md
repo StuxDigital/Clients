@@ -56,6 +56,8 @@ dependency-free Node script (`dev-server.js`); Node just needs to be installed. 
 
 This project uses [Date Versioning](https://datevers.ing): each release is numbered by its UTC release date as `YY.MM.DD` (for example `26.10.23`), with `-1`, `-2`… for later releases the same day. See [CHANGELOG.md](CHANGELOG.md) for what changed in each release, and [CONTRIBUTING.md](CONTRIBUTING.md) for the release steps. Pushing the `vYY.MM.DD` tag (`git push origin main --tags`) makes the release workflow publish a GitHub Release from the matching `CHANGELOG.md` section.
 
+Work happens on `test` (or a branch off it), never on `main`. Changes reach `main` only through a pull request from `test`, which needs CI to pass and is reviewed and merged by Leo; the release commit and tag are made on `test` (`git push origin test --tags`) and go live when the pull request is merged.
+
 ## Page head
 
 Every page's favicon tags and Discord link preview live between the `build-head` markers in its `<head>`, written by `python scripts/build-head.py` (run it after changing a page's title or description). Tests: `bash tests/version.sh`, `python tests/head.py`, `node tests/changelogs.test.js`.
