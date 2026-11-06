@@ -53,7 +53,7 @@ a single dependency-free Node script; the only requirement is having Node itself
 The list has two sections, in this order: **Featured** and **Client sites**; add a **Discontinued**
 section after them when a client site is retired. Until the first client site is live, the
 "Your site could be first" card (`.client-empty`) holds the slot: remove it when the first real
-card goes in. The Clientpage template card sits under Client sites with `data-state="template"`.
+card goes in. The Stux.Digital Clientpage template card sits under Client sites with `data-state="template"`.
 
 1. Add/update the entry in the README's clients table
 2. Add/update the matching `<article class="project-card">` block in `index.html`. For a client
@@ -101,3 +101,4 @@ This project uses [Date Versioning](https://datevers.ing). To release:
 - Check both the dev-mode banner (default) and `--no-dev-mode` if you touched `dev-server.js` or
   `assets/js/dev-mode.js`
 - Only link a repository if it is public: no "Repository" link on a card for a private or missing repo. Run `scripts/check-repo-links.sh` (needs `gh`) to list linked repos that are not public
+- Give every card its full name, in its heading and its icon's alt text ("Stux.Digital Status", not "Status"), and its own icon, never a shared or generic one. A site or service without a logo of its own gets a badge-style icon (the brand's mark on a round avatar, with a badge saying what it is) from `python -I scripts/badge-icons.py stux-digital assets/img/icon-light.png assets/img/clients`; add a glyph and file name there for a new one
