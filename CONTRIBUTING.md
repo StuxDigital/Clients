@@ -36,11 +36,12 @@ a single dependency-free Node script; the only requirement is having Node itself
   existing header/footer block when adding a page rather than introducing a templating system.
 - `assets/js/dev-mode.js` is the production default (`DEV_MODE = false`), committed as-is.
   `dev-server.js` intercepts that one path locally and serves a generated version instead.
-- **Client icons** go in `assets/img/clients/` (resized to 128 × 128), or use the client's own
-  hosted icon when their site has one.
+- **Client icons** go in `assets/img/clients/` as square PNGs (at least 128 × 128), or use the
+  client's own hosted icon when their site has one. A card without a logo of its own gets a badge
+  icon from `scripts/badge-icons.py` (see Before committing).
 - **The Stux.Digital twist** lives at the end of `style.css`: the browser-window frame
   (`.browser`, used by the hero stats and the 404 page), the dashed idea-to-online path
-  (`.journey`), the empty first-client card (`.client-empty`), and the `.only-dark` /
+  (`.journey`), the empty-list card (`.client-empty`, unused while there are client sites), and the `.only-dark` /
   `.only-light` image swap (bright logo/icon variants on dark, the deep ones on light).
 - **Only a few things load from elsewhere**, all Stux.Digital's own: live status from
   `raw.githubusercontent.com/StuxDigital/Status`, and the logo and icons from
@@ -51,9 +52,9 @@ a single dependency-free Node script; the only requirement is having Node itself
 ## Adding or retiring a client card
 
 The list has two sections, in this order: **Featured** and **Client sites**; add a **Discontinued**
-section after them when a client site is retired. Until the first client site is live, the
-"Your site could be first" card (`.client-empty`) holds the slot: remove it when the first real
-card goes in. The Stux.Digital Clientpage template card sits under Client sites with `data-state="template"`.
+section after them when a client site is retired. The first client site (Stux.Group) is live, so
+the "Your site could be first" placeholder card is gone; its `.client-empty` styles stay in
+`style.css` in case the list is ever empty again. The Stux.Digital Clientpage template card sits under Client sites with `data-state="template"`.
 
 1. Add/update the entry in the README's clients table
 2. Add/update the matching `<article class="project-card">` block in `index.html`. For a client
