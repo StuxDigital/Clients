@@ -670,7 +670,7 @@ a { color: inherit; text-decoration: none; }
 @media (prefers-reduced-motion: reduce) { .badge-status.up::before { animation: none; } }
 
 /* Hero eyebrow as a live status badge (data-status-eyebrow, filled by main.js): same size as
-   the plain eyebrow, in the status badge colours, with the dot and a "· state" suffix. */
+   the plain eyebrow, in the status badge colours, with the dot, showing only the state once it loads. */
 .hero .eyebrow.up { color: var(--ok); background: rgba(var(--ok-rgb), 0.1); border-color: rgba(var(--ok-rgb), 0.3); }
 .hero .eyebrow.degraded { color: var(--warn); background: rgba(var(--warn-rgb), 0.1); border-color: rgba(var(--warn-rgb), 0.3); }
 .hero .eyebrow.down { color: var(--bad); background: rgba(var(--bad-rgb), 0.1); border-color: rgba(var(--bad-rgb), 0.35); }
@@ -679,8 +679,7 @@ a { color: inherit; text-decoration: none; }
 }
 .hero .eyebrow.up::before { animation: badge-pulse 2s ease-out infinite; }
 @media (prefers-reduced-motion: reduce) { .hero .eyebrow.up::before { animation: none; } }
-.eyebrow-state::before { content: "·"; margin-right: 8px; }
-.eyebrow-state[hidden] { display: none; }
+.eyebrow-state[hidden], .eyebrow-brand[hidden] { display: none; }
 
 /* Status band */
 .status-band {

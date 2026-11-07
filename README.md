@@ -16,7 +16,7 @@ Design by Stux.Design, Build by Stux.Dev, Host by Stuxedo, Online).
 - Plain HTML, CSS and JavaScript: no framework, no bundler, no dependencies to install
 - Dark and light themes: it follows your system preference until you pick one with the header toggle, then remembers it
 - A [changelogs page](https://clients.stux.digital/changelogs/) that reads `CHANGELOG.md`, and a "from idea to online" page per client site (e.g. [/stuxgroup/](https://clients.stux.digital/stuxgroup/))
-- **Live status** in the hero (the eyebrow pill shows status.stux.digital's overall status) and on each card, read from [status.stux.digital](https://status.stux.digital)
+- **Live status** in the hero (the eyebrow pill shows status.stux.digital's overall status, e.g. "All operational") and on each card, read from [status.stux.digital](https://status.stux.digital)
   (`StuxDigital/Status`, powered by [GitHup](https://githup.stux.group))
 - **Seasonal overlays** from [SeasonalOverlaysLibrary](https://seasonaloverlayslibrary.stuxapis.net)
   (StuxAPIs): today's preset plays once per visit (never with reduced motion), and the hero button replays it

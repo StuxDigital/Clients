@@ -132,10 +132,13 @@
         var m = whole ? { status: summary.status } : bySlug[want.slug];
         var text = m && (whole ? WHOLE[m.status] : PILL[m.status]);
         var state = el.querySelector(".eyebrow-state");
+        var brand = el.querySelector(".eyebrow-brand");
         if (!text || !state) return;
         el.classList.add(m.status === "partial" ? "degraded" : m.status);
         state.textContent = text;
         state.hidden = false;
+        if (brand) brand.hidden = true; // the status replaces the name
+        el.setAttribute("aria-label", text + ": Stux.Digital status");
         el.title = "Live from " + SOURCES[source].site;
       });
       var band = document.getElementById("status-band");
