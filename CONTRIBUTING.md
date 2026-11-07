@@ -73,6 +73,18 @@ the "Your site could be first" placeholder card is gone; its `.client-empty` sty
    class and `data-state="discontinued"`, drop any dead Website link, and add a one-line `<p class="discontinued-note">` saying why
 6. Update the hero's client count (in the browser window) if it changed
 
+## Hero status eyebrow
+
+The small pill above the hero headline is a live status badge. It's a link to the status page,
+`<a class="eyebrow" href="https://status.stux.digital" data-status-eyebrow="stux-digital:*">Stux.Digital<span class="eyebrow-state" hidden></span></a>`,
+where `<source>:*` is the status page's overall status and `<source>:<slug>` would be one monitor.
+`main.js` reads the same `summary.json` as the card badges and adds `up`, `degraded` or `down`:
+the overall status shows as All operational, Degraded, Partial outage (styled as degraded) or
+Major outage, and a single monitor as Online, Degraded or Offline, after a "·" in `.eyebrow-state`.
+It keeps the eyebrow's size and shape, takes the status badge colours (10% background, 30% border,
+35% when down), and has the 7px dot, which pulses when up except with reduced motion. If the
+fetch fails nothing changes, and it stays a plain eyebrow. Check it in both themes after a change.
+
 ## Seasonal overlays
 
 `main.js` asks SeasonalOverlaysLibrary for today's preset from its calendar. It plays once per

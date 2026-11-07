@@ -89,8 +89,8 @@
     up: "All systems operational", degraded: "Degraded performance",
     partial: "Partial outage", down: "Major outage"
   };
-  function monitorOf(card) {
-    var v = card.getAttribute("data-monitor") || "";
+  function monitorOf(card, attr) {
+    var v = card.getAttribute(attr || "data-monitor") || "";
     var i = v.indexOf(":");
     return i < 0 ? { source: DEFAULT_SOURCE, slug: v } : { source: v.slice(0, i), slug: v.slice(i + 1) };
   }
@@ -101,6 +101,10 @@
   var wanted = {};
   document.querySelectorAll("[data-monitor]").forEach(function (card) {
     var m = monitorOf(card);
+    if (SOURCES[m.source]) wanted[m.source] = true;
+  });
+  document.querySelectorAll("[data-status-eyebrow]").forEach(function (el) {
+    var m = monitorOf(el, "data-status-eyebrow");
     if (SOURCES[m.source]) wanted[m.source] = true;
   });
   wanted[DEFAULT_SOURCE] = true; // the page-wide status band
@@ -119,6 +123,20 @@
         badge.textContent = want.slug === "*" ? WHOLE[m.status] : PILL[m.status];
         badge.title = "Live from " + SOURCES[source].site;
         badge.hidden = false;
+      });
+      // The hero eyebrow: "<source>:*" is the overall status, "<source>:<slug>" one monitor.
+      document.querySelectorAll("[data-status-eyebrow]").forEach(function (el) {
+        var want = monitorOf(el, "data-status-eyebrow");
+        if (want.source !== source) return;
+        var whole = want.slug === "*";
+        var m = whole ? { status: summary.status } : bySlug[want.slug];
+        var text = m && (whole ? WHOLE[m.status] : PILL[m.status]);
+        var state = el.querySelector(".eyebrow-state");
+        if (!text || !state) return;
+        el.classList.add(m.status === "partial" ? "degraded" : m.status);
+        state.textContent = text;
+        state.hidden = false;
+        el.title = "Live from " + SOURCES[source].site;
       });
       var band = document.getElementById("status-band");
       if (source === DEFAULT_SOURCE && band && OVERALL[summary.status]) {
