@@ -1,14 +1,22 @@
 name: Release
 
-# Publishes a GitHub Release whenever commit.sh's vX.Y.Z tag is pushed, with
-# the notes taken from the matching CHANGELOG.md section.
+# Publishes a GitHub Release for commit.sh's vYY.MM.DD tag once that tag is on
+# main, with the notes taken from the matching CHANGELOG.md section. The tag is
+# pushed from test before the pull request is merged, so a tag push alone does
+# nothing until the tagged commit reaches main; the merge into main publishes it.
 
 on:
   push:
+    branches: [main]
     tags: ["v*"]
+  workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: release
+  cancel-in-progress: false
 
 jobs:
   release:
@@ -17,21 +25,36 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
 
-      - name: Check the tag matches VERSION.md
+      - name: Decide whether to publish
+        id: tag
         env:
-          TAG: ${{ github.ref_name }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           V="$(tr -d '[:space:]' < VERSION.md)"
-          if [ "$TAG" != "v$V" ]; then
-            echo "::error::Tag $TAG does not match VERSION.md ($V)"
-            exit 1
+          TAG="v$V"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          if ! git rev-parse -q --verify "refs/tags/$TAG" > /dev/null; then
+            echo "No $TAG tag yet for main's VERSION.md ($V); nothing to publish."
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+          elif ! git merge-base --is-ancestor "$TAG^{commit}" origin/main; then
+            echo "$TAG isn't on main yet; it will be published when it's merged."
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+          elif gh release view "$TAG" > /dev/null 2>&1; then
+            echo "$TAG already has a Release."
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "publish=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Extract release notes from CHANGELOG.md
+        if: steps.tag.outputs.publish == 'true'
         env:
-          TAG: ${{ github.ref_name }}
+          TAG: ${{ steps.tag.outputs.tag }}
         run: |
           set -euo pipefail
           awk -v v="${TAG#v}" '
@@ -48,7 +71,8 @@ jobs:
           cat release-notes.md
 
       - name: Create GitHub Release
+        if: steps.tag.outputs.publish == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
-          TAG: ${{ github.ref_name }}
+          TAG: ${{ steps.tag.outputs.tag }}
         run: gh release create "$TAG" --title "$TAG" --notes-file release-notes.md --verify-tag

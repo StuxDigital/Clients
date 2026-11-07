@@ -5,6 +5,12 @@ All notable changes to Stux.Digital Clients are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Date Versioning](https://datevers.ing) since v26.10.23 (`YY.MM.DD`, the UTC release date, with `-1`, `-2`… for later releases the same day); earlier releases used [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v26.11.07-2
+
+### Changed
+
+- GitHub Releases are published only once a release's tag is on `main`. The release workflow now also runs on pushes to `main` and skips any tag that isn't on `main` yet, so pushing the tag from `test` no longer publishes a Release before the pull request is merged. The merge publishes it instead. It can also be run by hand, and it never publishes the same version twice. `README.md` describes the new behaviour
+
 ## v26.11.07-1
 
 ### Changed
