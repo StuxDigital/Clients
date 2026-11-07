@@ -76,14 +76,16 @@ the "Your site could be first" placeholder card is gone; its `.client-empty` sty
 ## Hero status eyebrow
 
 The small pill above the hero headline is a live status badge. It's a link to the status page,
-`<a class="eyebrow" href="https://status.stux.digital" data-status-eyebrow="stux-digital:*">Stux.Digital<span class="eyebrow-state" hidden></span></a>`,
+`<a class="eyebrow" href="https://status.stux.digital" data-status-eyebrow="stux-digital:*"><span class="eyebrow-brand">Stux.Digital</span><span class="eyebrow-state" hidden></span></a>`,
 where `<source>:*` is the status page's overall status and `<source>:<slug>` would be one monitor.
 `main.js` reads the same `summary.json` as the card badges and adds `up`, `degraded` or `down`:
 the overall status shows as All operational, Degraded, Partial outage (styled as degraded) or
-Major outage, and a single monitor as Online, Degraded or Offline, after a "·" in `.eyebrow-state`.
+Major outage, and a single monitor as Online, Degraded or Offline. Once the status loads, the pill
+shows only the state (`.eyebrow-state`): `.eyebrow-brand` is hidden, and the link's `aria-label`
+keeps the brand name.
 It keeps the eyebrow's size and shape, takes the status badge colours (10% background, 30% border,
 35% when down), and has the 7px dot, which pulses when up except with reduced motion. If the
-fetch fails nothing changes, and it stays a plain eyebrow. Check it in both themes after a change.
+fetch fails nothing changes, and it stays a plain eyebrow. Check it in both themes, and in an outage state, after a change.
 
 ## Seasonal overlays
 

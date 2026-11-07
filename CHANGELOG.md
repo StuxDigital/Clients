@@ -5,6 +5,12 @@ All notable changes to Stux.Digital Clients are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Date Versioning](https://datevers.ing) since v26.10.23 (`YY.MM.DD`, the UTC release date, with `-1`, `-2`… for later releases the same day); earlier releases used [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v26.11.07-1
+
+### Changed
+
+- The hero's live status eyebrow shows only the status once it loads ("All operational", "Degraded", "Partial outage" or "Major outage"), without the "Stux.Digital ·" prefix. The link's accessible name still says it's Stux.Digital's status. If the status can't be loaded, it stays the plain "Stux.Digital" eyebrow
+
 ## v26.11.07
 
 ### Changed
