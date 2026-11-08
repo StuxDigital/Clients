@@ -146,7 +146,7 @@
         band.className = "status-band " + summary.status;
         band.querySelector("h2").textContent = OVERALL[summary.status];
         var n = (summary.monitors || []).length;
-        band.querySelector("p").textContent = n + " monitors checked every 5 minutes by GitHup.";
+        band.querySelector("p").textContent = n + " monitors checked regularly by GitHup.";
       }
     }).catch(function () {});
   });

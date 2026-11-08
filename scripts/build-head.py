@@ -33,7 +33,7 @@ HOME = {
     "title": SITE_NAME,
     "lead": "**From idea to online, site by site.**",
     "desc": "Every site Stux.Digital has taken from a first idea to a finished home online, with live status where we check it.",
-    "facts": "Idea · Design · Build · Host · Online. Status checked every 5 minutes.",
+    "facts": "Idea · Design · Build · Host · Online. Status checked regularly.",
     "buttons": {"Browse clients": BASE_URL + "/#clients", "How it works": BASE_URL + "/#journey", "Status": "https://status.stux.digital"},
 }
 
