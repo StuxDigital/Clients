@@ -46,6 +46,7 @@ badge when it has a `data-monitor` (`stux-digital:<slug>`) matching a monitor sl
 ```
 ./dev-server.sh          # http://127.0.0.1:8080, DEV_MODE forced on
 ./dev-server.sh 3000 --no-dev-mode
+./dev-server.sh --lan    # also reachable from phones on your network
 ```
 
 On Windows, use `dev-server.bat` instead. No `npm install` needed: the dev server is a single

@@ -6,19 +6,25 @@
 // forced on for local runs without ever touching (or risking a commit of)
 // the real, gitignored-free, always-`false` file in assets/js/dev-mode.js.
 //
-// Usage: node dev-server.js [port] [--no-dev-mode]
+// Usage: node dev-server.js [port] [--no-dev-mode] [--lan]
+//   --lan   listen on all interfaces so phones/tablets on your network can connect
+//           (prints the addresses to open); default is 127.0.0.1 only
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
+const os = require("os");
 
 const ROOT = __dirname;
 const args = process.argv.slice(2);
 let port = 8080;
 let devMode = true;
+let host = "127.0.0.1";
 
 for (const arg of args) {
   if (arg === "--no-dev-mode") {
     devMode = false;
+  } else if (arg === "--lan") {
+    host = "0.0.0.0";
   } else if (/^\d+$/.test(arg)) {
     port = parseInt(arg, 10);
   } else {
@@ -82,8 +88,18 @@ const server = http.createServer((req, res) => {
   fs.createReadStream(found).pipe(res);
 });
 
-server.listen(port, "127.0.0.1", () => {
+server.listen(port, host, () => {
   console.log(`Stux.Digital Clients running at http://127.0.0.1:${port}`);
+  if (host === "0.0.0.0") {
+    // This machine's IPv4 addresses, minus loopback
+    console.log("On your local network (--lan), open one of these on the other device:");
+    for (const list of Object.values(os.networkInterfaces())) {
+      for (const a of list || []) {
+        if ((a.family === "IPv4" || a.family === 4) && !a.internal) console.log(`    http://${a.address}:${port}`);
+      }
+    }
+    console.log("  (usually the 192.168.x.x one; allow Node through the firewall if asked)");
+  }
   if (devMode) {
     console.log("DEV_MODE forced on for this run (banner shows) — pass --no-dev-mode to disable.");
   } else {

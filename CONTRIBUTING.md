@@ -20,7 +20,7 @@ cd Clients
 
 No install step: there's no `package.json`, no dependencies, nothing to build. `dev-server.js` is
 a single dependency-free Node script; the only requirement is having Node itself installed. Pass
-`--no-dev-mode` to test the site as it behaves in production (no dev banner).
+`--no-dev-mode` to test the site as it behaves in production (no dev banner). `--lan` listens on all interfaces instead of `127.0.0.1` only, so a phone or tablet on the same network can open the site; the script prints the addresses to try (usually the `192.168.x.x` one), and you may need to allow Node through the firewall.
 
 ## Project conventions
 
