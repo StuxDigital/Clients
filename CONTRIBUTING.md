@@ -100,9 +100,12 @@ All six live under `legal/` (`privacy`, `terms`, `cookies`, `imprint`, `disclaim
 each its own folder with an `index.html`, linked from the **Boring Legal Stuff** hub at
 `legal/index.html`. Keep them in sync with what the site actually does.
 
-## Branches
+## Branches and going live
 
-Work happens on `test` (or a branch off it), never on `main`. Changes reach `main` only through a pull request from `test`, which needs CI to pass and is reviewed and merged by Leo; the release commit and tag are made on `test` (`git push origin test --tags`) and go live when the pull request is merged.
+- **`main` is what's live.** Nothing is pushed to it directly: it only changes when a pull request from `staging` is merged, and it needs CI to pass.
+- **`staging` is the last check before live.** It only changes when a pull request from `test` is merged. It isn't deployed anywhere of its own; deploys stay on `main`.
+- **Work happens on `test`**, or on a feature branch off `test` that's merged back into it. Releases are made on `test` too; `commit.sh` / `commit.bat` refuse to run on `staging` or `main`.
+- **Going live:** push `test` with its tag (`git push origin test --tags`), open a pull request into staging (`gh pr create --base staging --head test`), check staging once it's merged, then open one from staging into main (`gh pr create --base main --head staging`). Leo reviews and merges both.
 
 ## Versioning
 
